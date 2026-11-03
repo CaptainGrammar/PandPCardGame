@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#26382f">
+  <meta name="description" content="Design Regency-inspired character and setting cards for First Impressions: A Game of Delicate Hostilities, based on Pride and Prejudice.">
+  <title>First Impressions: A Game of Delicate Hostilities — Card Creator</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="assets/data.js" defer></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <div class="app-shell">
+    <header class="site-header">
+      <div class="header-ornament" aria-hidden="true"></div>
+      <div class="header-center">
+        <div class="header-eyebrow">REGENCY-INSPIRED CARD CREATOR</div>
+        <h1>First Impressions</h1>
+        <p class="game-subtitle">A Game of Delicate Hostilities</p>
+      </div>
+      <div class="header-right">
+        <button type="button" id="help-button" class="text-button">How to use</button>
+        <span class="header-line"></span>
+        <span class="edition-tag">CLASSROOM EDITION</span>
+      </div>
+    </header>
+
+    <main class="workspace">
+      <aside class="editor-panel panel" aria-label="Card details editor">
+        <div class="panel-heading"><span class="floret" aria-hidden="true">❦</span><h2>Card Details</h2></div>
+        <div class="editor-content">
+          <fieldset class="field-group" aria-label="Card type">
+            <legend>Card Type</legend>
+            <div class="type-switch">
+              <button type="button" id="type-character" class="type-choice active" aria-pressed="true"><span aria-hidden="true">♟</span> Character</button>
+              <button type="button" id="type-setting" class="type-choice" aria-pressed="false"><span aria-hidden="true">⌂</span> Setting</button>
+            </div>
+          </fieldset>
+
+          <div class="field-group">
+            <label for="card-name" id="name-label">Character Name</label>
+            <input id="card-name" type="text" maxlength="42" placeholder="e.g. Elizabeth Bennet">
+          </div>
+
+          <div class="field-group art-upload-group">
+            <label for="portrait-file" id="art-label">Portrait Artwork</label>
+            <div class="upload-row">
+              <div class="uploaded-image" id="uploaded-image" aria-hidden="true"><span>❦</span></div>
+              <div class="upload-actions">
+                <label class="file-button" for="portrait-file"><span aria-hidden="true">↑</span> Choose image…</label>
+                <input id="portrait-file" type="file" accept="image/png,image/jpeg,image/webp" hidden>
+                <p>JPG, PNG, or WebP. You can also drop an image onto the card.</p>
+                <button type="button" class="minor-link" id="clear-portrait">Remove artwork</button>
+              </div>
+            </div>
+          </div>
+
+          <section class="art-position field-group" id="art-position" aria-label="Artwork size and placement">
+            <div class="art-position-header"><strong>Artwork Placement</strong><button type="button" id="reset-art-position" class="minor-link">Reset position</button></div>
+            <p class="art-position-hint">Drag the artwork in the preview, or fine-tune it below.</p>
+            <div class="position-control">
+              <div class="field-label-line"><label for="image-zoom">Image Size</label><output id="image-zoom-output" for="image-zoom">100%</output></div>
+              <input id="image-zoom" type="range" min="100" max="250" step="5" value="100">
+            </div>
+            <div class="position-control">
+              <div class="field-label-line"><label for="image-x">Horizontal Position</label><output id="image-x-output" for="image-x">Center</output></div>
+              <input id="image-x" type="range" min="-100" max="100" step="1" value="0">
+            </div>
+            <div class="position-control">
+              <div class="field-label-line"><label for="image-y">Vertical Position</label><output id="image-y-output" for="image-y">Center</output></div>
+              <input id="image-y" type="range" min="-100" max="100" step="1" value="0">
+            </div>
+          </section>
+
+          <div class="stats-fields" id="stats-fields">
+            <div class="field-group stat-field">
+              <div class="field-label-line"><label for="sway">Sway <small>· Influence</small></label><output id="sway-output" for="sway">3</output></div>
+              <input id="sway" type="range" min="1" max="4" step="1" value="3">
+            </div>
+            <div class="field-group stat-field">
+              <div class="field-label-line"><label for="standing">Standing <small>· Reputation</small></label><output id="standing-output" for="standing">4</output></div>
+              <input id="standing" type="range" min="2" max="7" step="1" value="4">
+            </div>
+            <p class="helper" id="stat-guidance">Suggested combined stats: no more than 9.</p>
+            <label class="checkbox-line" for="show-stats"><input id="show-stats" type="checkbox"> Show Sway and Standing numbers on the card</label>
+            <p class="helper checkbox-helper">Numbers are optional and are hidden by default.</p>
+          </div>
+
+          <div class="field-group rich-ability-group">
+            <label id="ability-label-1" for="ability-1">Interaction I</label>
+            <div class="rich-editor-shell">
+              <div class="rich-toolbar" role="toolbar" aria-label="Format first interaction" data-rich-for="ability1">
+                <button type="button" data-command="bold" title="Bold (Ctrl+B)" aria-label="Bold selected text"><b>B</b></button>
+                <button type="button" data-command="italic" title="Italic (Ctrl+I)" aria-label="Italicize selected text"><i>I</i></button>
+                <span>Bold or italicize selected words</span>
+              </div>
+              <div id="ability-1" class="rich-editor" contenteditable="true" role="textbox" aria-label="First ability interaction" aria-multiline="true" data-placeholder="Describe the first interaction…"></div>
+            </div>
+          </div>
+          <div class="field-group rich-ability-group">
+            <label id="ability-label-2" for="ability-2">Interaction II</label>
+            <div class="rich-editor-shell">
+              <div class="rich-toolbar" role="toolbar" aria-label="Format second interaction" data-rich-for="ability2">
+                <button type="button" data-command="bold" title="Bold (Ctrl+B)" aria-label="Bold selected text"><b>B</b></button>
+                <button type="button" data-command="italic" title="Italic (Ctrl+I)" aria-label="Italicize selected text"><i>I</i></button>
+                <span>Two interactions per card</span>
+              </div>
+              <div id="ability-2" class="rich-editor" contenteditable="true" role="textbox" aria-label="Second ability interaction" aria-multiline="true" data-placeholder="Describe the second interaction…"></div>
+            </div>
+            <p class="rich-help">Both interactions appear on the card. Long text automatically shrinks to fit in the preview and PNG.</p>
+          </div>
+          <div class="field-group">
+            <label for="quote">Quotation <small>· Optional</small></label>
+            <textarea id="quote" rows="2" maxlength="160" placeholder="A revealing line from the novel…"></textarea>
+          </div>
+          <div class="field-group" id="traits-field">
+            <label>Trait Tags <small>· Select up to 3</small></label>
+            <div class="trait-choices" id="trait-choices" role="group" aria-label="Character traits"></div>
+            <p class="helper" id="traits-helper">Selected traits appear as bubbles on character cards and can be referenced by later abilities.</p>
+          </div>
+          <div class="field-group">
+            <label>Ornament Style</label>
+            <div class="ornament-choices" id="ornament-choices">
+              <button type="button" class="ornament-option active" data-ornament="floral" aria-label="Floral engraving" aria-pressed="true" title="Floral engraving"><span class="ornament-glyph">❀</span><small>Floral</small></button>
+              <button type="button" class="ornament-option" data-ornament="vines" aria-label="Trailing vines" aria-pressed="false" title="Trailing vines"><span class="ornament-glyph">❧</span><small>Vines</small></button>
+              <button type="button" class="ornament-option" data-ornament="minimal" aria-label="Clean Regency lines" aria-pressed="false" title="Clean Regency lines"><span class="ornament-glyph">◇</span><small>Clean</small></button>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <section class="preview-area" aria-label="Live card preview">
+        <div class="stage-heading">
+          <span class="stage-label"><span aria-hidden="true">✧</span> LIVE PREVIEW</span>
+          <span class="preview-hint">Live updates · Drag artwork to move it</span>
+        </div>
+        <div class="preview-stage" id="preview-drop-zone">
+          <div class="stage-watermark stage-watermark-left" aria-hidden="true"></div>
+          <div class="stage-watermark stage-watermark-right" aria-hidden="true"></div>
+          <canvas id="card-preview" width="720" height="1040" role="img" aria-label="Live rendered card preview (portrait for characters, landscape for settings)"></canvas>
+          <div id="drop-overlay" class="drop-overlay" hidden>Drop your artwork here</div>
+        </div>
+        <div class="stage-footer">
+          <span id="preview-kind">CHARACTER CARD</span><span class="stage-flower">❧</span><span id="preview-size">720 × 1040 px · print-ready PNG available</span>
+        </div>
+      </section>
+
+      <aside class="style-panel panel" aria-label="Card styling and export">
+        <div class="panel-heading"><span class="floret" aria-hidden="true">❦</span><h2>Card Styling</h2></div>
+        <div class="style-content">
+          <div class="field-group">
+            <label>Frame Colour</label>
+            <div class="swatches" id="frame-swatches" role="group" aria-label="Frame colour">
+              <button type="button" class="swatch active" data-color="gold" title="Antique gold" aria-label="Antique gold" aria-pressed="true"></button>
+              <button type="button" class="swatch" data-color="sage" title="Sage" aria-label="Sage" aria-pressed="false"></button>
+              <button type="button" class="swatch" data-color="blue" title="Dusty blue" aria-label="Dusty blue" aria-pressed="false"></button>
+              <button type="button" class="swatch" data-color="rose" title="Muted rose" aria-label="Muted rose" aria-pressed="false"></button>
+              <button type="button" class="swatch" data-color="charcoal" title="Ink black" aria-label="Ink black" aria-pressed="false"></button>
+            </div>
+          </div>
+          <div class="field-group">
+            <label>Background Pattern</label>
+            <div class="pattern-options" id="pattern-options" role="group" aria-label="Background pattern">
+              <button class="pattern-option pattern-sprigs active" data-pattern="sprigs" title="Tiny sprigs" aria-label="Tiny sprigs" aria-pressed="true"></button>
+              <button class="pattern-option pattern-vines" data-pattern="vines" title="Trailing vines" aria-label="Trailing vines" aria-pressed="false"></button>
+              <button class="pattern-option pattern-damask" data-pattern="damask" title="Blue damask" aria-label="Blue damask" aria-pressed="false"></button>
+              <button class="pattern-option pattern-leaves" data-pattern="leaves" title="Leaves" aria-label="Leaves" aria-pressed="false"></button>
+              <button class="pattern-option pattern-none" data-pattern="none" title="Plain parchment" aria-label="Plain parchment" aria-pressed="false"></button>
+            </div>
+          </div>
+
+          <div class="setting-tip" id="setting-tip"><span class="tip-icon" aria-hidden="true">⌂</span><div><strong>Setting cards</strong><p>Switch to <em>Setting</em> on the left to create locations that change the conditions of play for both players.</p></div></div>
+
+          <div class="rule-note"><span aria-hidden="true">✦</span><p><strong>Literary design tip</strong><br>Choose stats, interactions, and settings that you can defend with evidence from the novel.</p></div>
+
+          <div class="actions-section">
+            <div class="panel-heading actions-heading"><span class="floret" aria-hidden="true">❦</span><h2>Actions</h2></div>
+            <button type="button" id="download-png" class="primary-action"><span aria-hidden="true">⇩</span> Download PNG <span aria-hidden="true">❧</span></button>
+            <button type="button" id="save-card" class="secondary-action"><span aria-hidden="true">▣</span> Save Draft</button>
+            <button type="button" id="export-json" class="secondary-action"><span aria-hidden="true">≡</span> Export Card Data</button>
+            <div class="link-actions"><button type="button" id="import-json" class="minor-link">Import card data</button><button type="button" id="duplicate-card" class="minor-link">Duplicate card</button></div>
+            <input id="import-file" type="file" accept="application/json,.json" hidden>
+            <button type="button" id="delete-card" class="delete-link minor-link">Delete this card</button>
+            <p id="save-status" class="save-status" role="status" aria-live="polite">Your work is ready to edit.</p>
+          </div>
+        </div>
+      </aside>
+    </main>
+
+    <section class="gallery-section" aria-label="Card gallery">
+      <div class="gallery-heading"><span class="floret" aria-hidden="true">❦</span><div><h2>Card Gallery</h2><p>Choose a card to edit, or begin a new one.</p></div></div>
+      <div class="gallery-list" id="gallery-list"></div>
+      <div class="gallery-actions"><button type="button" id="new-character" class="new-card"><span>＋</span><small>New<br>Character</small></button><button type="button" id="new-setting" class="new-card"><span>⌂</span><small>New<br>Setting</small></button></div>
+    </section>
+    <footer class="bottom-note">Made for readers, designers, and the discerning society of Hertfordshire <span aria-hidden="true">❧</span> Cards are saved in this browser, not on a server.</footer>
+  </div>
+
+  <dialog id="help-dialog" class="help-dialog">
+    <form method="dialog"><button class="close-dialog" aria-label="Close help">×</button></form>
+    <div class="dialog-flourish">❦</div><h2>How to Use the Card Creator</h2>
+    <p><strong>1.</strong> Choose Character or Setting and edit the fields. The central card updates instantly.</p>
+    <p><strong>2.</strong> Upload artwork, move and resize it using the Artwork Placement sliders or by dragging on the preview; adjust the frame colour and ornamental design, choose up to three character traits, and write two interactions grounded in the novel. Select words in either field to make them <strong>bold</strong> or <em>italic</em>. The card automatically adjusts font size to keep both complete.</p>
+    <p><strong>3.</strong> Select <em>Save Draft</em> to keep changes in your browser, or <em>Download PNG</em> for a high-resolution printable card. Character card stat numbers are optional and hidden by default. Export Card Data creates a JSON file you can share or import later.</p>
+    <p class="help-fine">This is an initial working prototype. It does not yet provide accounts, online collaboration, or shared classroom decks.</p>
+  </dialog>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+</body>
+</html>
